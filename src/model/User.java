@@ -7,7 +7,11 @@ public class User {
      private String nickname;
       
       
-      
+      public User(String n) {
+    	  nickname = n;
+    	  
+    	  
+      }
       
       
       
@@ -20,9 +24,7 @@ public class User {
 	public String getNickname() {
 		return nickname;
 	}
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
-	}
+	
 	
       
       
