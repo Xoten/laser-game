@@ -10,7 +10,7 @@ public class Node {
 	private Node down;
 	private String mirror;
 	private String value;
-	private boolean visibility;
+	
 	
 
 	public Node(int r, int c) {
@@ -18,15 +18,10 @@ public class Node {
 		col = c;
 		mirror = "";
 		value = "";
-		visibility = false;
+		
 	}
 	
-	public boolean isVisibility() {
-		return visibility;
-	}
-	public void setVisibility(boolean v) {
-		visibility = v;
-	}
+	
 	public String getValue() {
 		return value;
 	}
@@ -85,6 +80,6 @@ public class Node {
 	}
 	
 	public String toString() {
-		return "[ "  + value + " ]";
+		return "[ "  + getValue() + " ]";
 	}
 }
