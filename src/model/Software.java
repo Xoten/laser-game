@@ -285,6 +285,7 @@ public class Software {
 
 				toLocate.setValue(toLocate.getMirror());	
 				guessed = true;
+				toLocate.setVisibility(true);
 
 			}else {
 				toLocate.setValue("X");	
@@ -298,6 +299,28 @@ public class Software {
 
 		return guessed;
 
+
+	}
+
+	public void verifyStateAtEnd(Node StartToVerify, Node endToVerify) {
+
+		if(StartToVerify.getVisibility() == true ) {
+
+			StartToVerify.setValue(StartToVerify.getMirror());
+
+		}else {
+
+			StartToVerify.setValue("");
+
+		} if(endToVerify.getVisibility() == true){
+
+
+			endToVerify.setValue(endToVerify.getMirror());
+
+		}else {
+
+			endToVerify.setValue("");
+		}
 
 	}
 
