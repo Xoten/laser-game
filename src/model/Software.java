@@ -17,7 +17,14 @@ public class Software {
 	public LinkedMatrix getLinkedM() {
 		return LinkedM;
 	}
-
+	
+	/**
+	 * This method set values to start and exit node
+	 * @param rowShoot is the row where the user wants to shoot
+	 * @param colShoot is the column where the user wants to shoot
+	 * @param orientation is the orientation of the shot, it will be "" if the user is not firing at the corners
+	 * @return isFound, true if the start node exists, false if not
+	 */
 	public boolean toShoot(int rowShoot, int colShoot , String orientation ) {
 
 		boolean isFound = !false;
@@ -54,13 +61,13 @@ public class Software {
 
 	}
 
-	
+
 	/**
-	 * This method determines the initial direction that the bullet goes when the user its shooting from the borders but not the corners
+	 * This method determines the initial direction that the laser goes when the user its shooting from the borders but not the corners
 	 * @param ToLocateStart is the node where the user stars firing.
-	 * @return the initial Direction that the bullet goes.
+	 * @return the initial Direction that the laser goes.
 	 */
-	
+
 
 	public String toDetermineInitialDirection(Node ToLocateStart) {
 
@@ -133,12 +140,12 @@ public class Software {
 		}
 		return InitialD;
 	}
-	
+
 	/**
 	 * This method determine the initial direction when the user is firing on a corner, using the orientation and the node where the user starts firing
 	 * @param orientation that must be horizontal or vertical
 	 * @param ToLocateStart is the node where the user starts firing.
-	 * @return the initial direction that the bullet takes.
+	 * @return the initial direction that the laser takes.
 	 */
 
 	public String toDetermineInitialDirectionatCorner(String orientation, Node ToLocateStart) {
@@ -256,12 +263,12 @@ public class Software {
 
 	}
 
-    /**
-     * This method obtains the node where the bullet goes out of the matrix.
-     * @param ShootEnd is the current position of the laser, at first its the start node
-     * @param initialWay is the initial course that the bullet goes
-     * @return the end node
-     */
+	/**
+	 * This method obtains the node where the laser goes out of the matrix.
+	 * @param ShootEnd is the current position of the laser, at first its the start node
+	 * @param initialWay is the initial course that the laser goes
+	 * @return the end node
+	 */
 
 
 	public Node Shoot(Node ShootEnd, String initialWay) {
@@ -378,7 +385,7 @@ public class Software {
 	}
 
 	/**
-	 * This methods search a node by its row number and column number
+	 * This methods search a node by its row number and column number, it calls the method that search in a row
 	 * @param currentNode is the current node
 	 * @param toSearchRow is the row where  the node i'm looking for its located
 	 * @param toSearchColum is the column where the node  i'm looking for its located
@@ -399,6 +406,14 @@ public class Software {
 		return toSearch; 
 	}
 
+
+	/**
+	 * This method search a node in a row by its row number and column number
+	 * @param currentN is the current node
+	 * @param toFindRow is the row where the node its located
+	 * @param toFindColumn is the column where the node its located
+	 * @return the searched node or the final node in a row.
+	 */
 	public Node goThroughRows(Node currentN, int toFindRow, int toFindColumn) {
 		Node toSearch = null;
 		if(currentN!=null) {
@@ -411,6 +426,13 @@ public class Software {
 		return toSearch;
 	}
 
+	/**
+	 * This method determine if the guess of the user is correct or not
+	 * @param rowFire is the row of the node where the user thinks a mirror is situated
+	 * @param ColFire is the column of the node where the user thinks a mirror is situated
+	 * @param inclination is the inclination that the user supposes the mirror has
+	 * @return true if the guess is correct, false if not
+	 */
 	public boolean toLocateMirror(int rowFire, int ColFire, String inclination) {
 
 		boolean guessed;
@@ -448,6 +470,12 @@ public class Software {
 
 	}
 
+	/**
+	 * This method verify if the start node and the end node have been guessed already , if they have, mirrors are shown again, if some of them haven't, that node value is set as "" again
+	 * @param StartToVerify is the node where the user starts firing
+	 * @param endToVerify is the node where the laser goes out of the matrix
+	 */
+
 	public void verifyStateAtEnd(Node StartToVerify, Node endToVerify) {
 
 		if(StartToVerify.getVisibility() == true ) {
@@ -470,6 +498,13 @@ public class Software {
 
 	}
 
+	/**
+	 * This method generates mirroN quantity of mirrors randomly
+	 * @param mirrorN is the amount of mirrors
+	 * @param n is the amount of rows of the matrix
+	 * @param m is the amount of columns of the matrix
+	 */
+
 	public void generateRandomMirrors(int mirrorN, int n, int m) {
 		if(mirrorN!=0) {
 			int aleatoryN = (int)(Math.random()*n+1)-1;
@@ -489,6 +524,11 @@ public class Software {
 		}
 	}
 
+	/**
+	 * This method create a linked matrix with m rows and n columns
+	 * @param m is the amount of rows of the matrix to be created
+	 * @param n is the amount of columns of the matrix to be created
+	 */
 	public void toAddLinkedMatrix(int m, int n) {
 
 
