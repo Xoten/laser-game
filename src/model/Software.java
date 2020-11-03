@@ -54,6 +54,13 @@ public class Software {
 
 	}
 
+	
+	/**
+	 * This method determines the initial direction that the bullet goes when the user its shooting from the borders but not the corners
+	 * @param ToLocateStart is the node where the user stars firing.
+	 * @return the initial Direction that the bullet goes.
+	 */
+	
 
 	public String toDetermineInitialDirection(Node ToLocateStart) {
 
@@ -126,6 +133,13 @@ public class Software {
 		}
 		return InitialD;
 	}
+	
+	/**
+	 * This method determine the initial direction when the user is firing on a corner, using the orientation and the node where the user starts firing
+	 * @param orientation that must be horizontal or vertical
+	 * @param ToLocateStart is the node where the user starts firing.
+	 * @return the initial direction that the bullet takes.
+	 */
 
 	public String toDetermineInitialDirectionatCorner(String orientation, Node ToLocateStart) {
 
@@ -242,32 +256,37 @@ public class Software {
 
 	}
 
+    /**
+     * This method obtains the node where the bullet goes out of the matrix.
+     * @param ShootEnd is the current position of the laser, at first its the start node
+     * @param initialWay is the initial course that the bullet goes
+     * @return the end node
+     */
 
 
+	public Node Shoot(Node ShootEnd, String initialWay) {
 
-	public Node Shoot(Node ShootEnd, String initialTrayect) {
-
-		if(initialTrayect.equalsIgnoreCase("down")) {
+		if(initialWay.equalsIgnoreCase("down")) {
 
 			if(ShootEnd.getDown() != null) {
 
 				if(ShootEnd.getDown().getMirror().equals("\\")) {
 
 
-					initialTrayect = "right";
+					initialWay = "right";
 					ShootEnd = ShootEnd.getDown();
-					return Shoot(ShootEnd, initialTrayect);
+					return Shoot(ShootEnd, initialWay);
 				}else if(ShootEnd.getDown().getMirror().equals("/")) {
 
-					initialTrayect = "left";
+					initialWay = "left";
 					ShootEnd = ShootEnd.getDown();
-					return Shoot(ShootEnd, initialTrayect);
+					return Shoot(ShootEnd, initialWay);
 				}else {
 
 
 
 					ShootEnd = ShootEnd.getDown();
-					return Shoot(ShootEnd, initialTrayect);
+					return Shoot(ShootEnd, initialWay);
 				}
 
 			}
@@ -276,25 +295,25 @@ public class Software {
 
 		}
 
-		if(initialTrayect.equalsIgnoreCase("up")) {
+		if(initialWay.equalsIgnoreCase("up")) {
 
 			if(ShootEnd.getUp() != null) {
 
 				if(ShootEnd.getUp().getMirror().equals("\\")) {
 
 
-					initialTrayect = "left";
+					initialWay = "left";
 					ShootEnd = ShootEnd.getUp();
-					return  Shoot(ShootEnd, initialTrayect);
+					return  Shoot(ShootEnd, initialWay);
 				}else if(ShootEnd.getUp().getMirror().equals("/")) {
 
-					initialTrayect = "right";
+					initialWay = "right";
 					ShootEnd = ShootEnd.getUp();
-					return Shoot(ShootEnd, initialTrayect);
+					return Shoot(ShootEnd, initialWay);
 				}else {
 
 					ShootEnd = ShootEnd.getUp();
-					return Shoot(ShootEnd, initialTrayect);
+					return Shoot(ShootEnd, initialWay);
 
 				}
 			}
@@ -302,25 +321,25 @@ public class Software {
 			return ShootEnd;
 
 		}
-		if(initialTrayect.equalsIgnoreCase("Right")) {
+		if(initialWay.equalsIgnoreCase("Right")) {
 
 			if(ShootEnd.getNext() != null) {
 
 				if(ShootEnd.getNext().getMirror().equals("\\")) {
 
 
-					initialTrayect = "down";
+					initialWay = "down";
 					ShootEnd = ShootEnd.getNext();
-					return Shoot(ShootEnd, initialTrayect);
+					return Shoot(ShootEnd, initialWay);
 				}else if(ShootEnd.getNext().getMirror().equals("/")) {
 
-					initialTrayect = "up";
+					initialWay = "up";
 					ShootEnd = ShootEnd.getNext();
-					return Shoot(ShootEnd, initialTrayect);
+					return Shoot(ShootEnd, initialWay);
 				}else {
 
 					ShootEnd = ShootEnd.getNext();
-					return Shoot(ShootEnd, initialTrayect);
+					return Shoot(ShootEnd, initialWay);
 
 				}
 
@@ -329,28 +348,28 @@ public class Software {
 			return ShootEnd;
 
 		}
-		if(initialTrayect.equalsIgnoreCase("Left")) {
+		if(initialWay.equalsIgnoreCase("Left")) {
 
 			if(ShootEnd.getPrev() != null) {
 
 				if(ShootEnd.getPrev().getMirror().equals("\\")) {
 
 
-					initialTrayect = "up";
+					initialWay = "up";
 					ShootEnd = ShootEnd.getPrev();
-					return Shoot(ShootEnd, initialTrayect);
+					return Shoot(ShootEnd, initialWay);
 				}else if(ShootEnd.getPrev().getMirror().equals("/")) {
 
-					initialTrayect = "down";
+					initialWay = "down";
 					ShootEnd = ShootEnd.getPrev();
-					return Shoot(ShootEnd, initialTrayect);
+					return Shoot(ShootEnd, initialWay);
 
 
 				}else {
 
 
 					ShootEnd = ShootEnd.getPrev();
-					return Shoot(ShootEnd, initialTrayect);
+					return Shoot(ShootEnd, initialWay);
 
 				}
 			}
@@ -358,6 +377,13 @@ public class Software {
 		return ShootEnd;
 	}
 
+	/**
+	 * This methods search a node by its row number and column number
+	 * @param currentNode is the current node
+	 * @param toSearchRow is the row where  the node i'm looking for its located
+	 * @param toSearchColum is the column where the node  i'm looking for its located
+	 * @return the node searched
+	 */
 	public Node toFindPosition(Node currentNode, int toSearchRow, int toSearchColum) {
 		Node toSearch = null;
 		if(currentNode!=null) {
