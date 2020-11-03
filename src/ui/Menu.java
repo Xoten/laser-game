@@ -120,8 +120,7 @@ public class Menu {
 				} else {
 					System.out.println("Fired!!");
 					System.out.println(sw.getLinkedM());
-					sw.toFindPosition(sw.getLinkedM().getFirst(), rowFire-1, colToFire).setValue("");
-					sw.getExitNode().setValue("");
+					sw.verifyStateAtEnd(sw.toFindPosition(sw.getLinkedM().getFirst(), rowFire-1, colToFire), sw.getExitNode());
 				}
 			} else {
 				System.out.println("Coordinates out of matrix!!");
