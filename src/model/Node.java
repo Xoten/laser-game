@@ -89,6 +89,6 @@ public class Node {
 	}
 	
 	public String toString() {
-		return "[ "  + getValue() + " ]";
+		return "[ "  +getValue()+ " ]";
 	}
 }

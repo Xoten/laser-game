@@ -1,8 +1,12 @@
 package ui;
 
 
+
 import java.util.Scanner;
 import model.Software;
+
+
+
 
 public class Menu {
 
@@ -60,8 +64,9 @@ public class Menu {
 		int k = Integer.parseInt(parts[3]);
 		sw.toAddLinkedMatrix(m, n);
 		if(k <= m*n) {
-			sw.generateRandomMirrors(m, n, k);
+			sw.generateRandomMirrors(k, n, m);
 			shootOption(false, m, n, 1, nickName, k);
+			
 		} else {
 			System.out.println("Mirrors must be minors than the matrix size");
 		}
@@ -171,6 +176,9 @@ public class Menu {
 		return option;
 	}
 	
+	public void showPositions() {
+		System.out.println("\n"+sw.scoreInorden());
+	}
 	
 	
 	

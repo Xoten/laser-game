@@ -7,6 +7,7 @@ public class LinkedMatrix {
 	
 	
 	
+	
 	public int getNumCols() {
 		return numCols;
 	}
@@ -14,6 +15,7 @@ public class LinkedMatrix {
 		numRows = m;
 		numCols = n;
 		createMatrix();
+	
 	}
 	public int getNumRows() {
 		return numRows;
@@ -24,6 +26,12 @@ public class LinkedMatrix {
 		first = new Node(0,0);
 		createRow(0,0,first);
 	}
+	/**
+	 * This method
+	 * @param i
+	 * @param j
+	 * @param currentFirstRow
+	 */
 
 	private void createRow(int i, int j, Node currentFirstRow) {
 	
