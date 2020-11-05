@@ -110,7 +110,8 @@ public class Menu {
 			System.out.println("Type menu to exit, L to locate or coordinate to fire");
 
 			String fire = sc.nextLine();
-			String [] fParts = fire.split("");
+			
+			
 			if(fire.equalsIgnoreCase("Menu") || stop == true ) {
 
 
@@ -121,16 +122,18 @@ public class Menu {
 
 
 
-			} else if(fParts[0].equalsIgnoreCase("L")){
+			} else if(String.valueOf(fire.charAt(0)).equalsIgnoreCase("L")){
 				boolean mirrorFound = false;
-				int rowFire = Integer.parseInt(fParts[1]);
-				char colFireChar = fParts[2].charAt(0);
-				int colFire = colFireChar;
-				int colToFire = (char)(colFire-'A');
-				String directorMirror = (fParts[3]);
-				if(sw.toLocateMirror(rowFire-1, colToFire, directorMirror) == false) {
+				String directorMirror = String.valueOf(fire.charAt(fire.length()-1));
+		        char coL = fire.charAt(fire.length()-2);
+		        int colL = coL;
+		        int colToLocate = (char)(colL-'A');
+		        String rowL = fire.substring(1,fire.length()-2);
+		        int rowToLocate = Integer.parseInt(rowL);
+				
+				if(sw.toLocateMirror(rowToLocate-1, colToLocate, directorMirror) == false) {
 					System.out.println(sw.getLinkedM());
-					sw.toFindPosition(sw.getLinkedM().getFirst(), rowFire-1, colToFire).setValue("");
+					sw.toFindPosition(sw.getLinkedM().getFirst(), rowToLocate-1, colToLocate).setValue("");
 				} else {
 					mirrorFound = true;
 
@@ -142,13 +145,26 @@ public class Menu {
 				shootOption(stop, m, n,  nickName, k);
 
 			} else {
-				int rowFire = Integer.parseInt(fParts[0]);
-				char colFireChar = fParts[1].charAt(0);
-				int colFire = colFireChar;
-				int colToFire = (char)(colFire-'A');
+				String rowF;
+				int rowFire = 0;
+				char colFireChar;
+				int colFire;
+				int colToFire= 0;
 				String directorFire = "";
-				if(fParts.length == 3) {
-					directorFire = (fParts[2]);
+				if(Character.isLetter(fire.charAt(fire.length()-2))) {
+					directorFire = String.valueOf(fire.charAt(fire.length()-1));
+					rowF = fire.substring(0 , fire.length()-2);
+					rowFire = Integer.parseInt(rowF);
+					colFireChar = fire.charAt(fire.length()-2);
+					colFire = colFireChar;
+					colToFire = (char)(colFire - 'A');
+					
+				}else {
+					rowF = fire.substring(0 , fire.length()-1);
+					rowFire = Integer.parseInt(rowF);
+					colFireChar = fire.charAt(fire.length()-1);
+					colFire = colFireChar;
+					colToFire = (char)(colFire - 'A');
 				}
 				if(rowFire-1 < m && colToFire < n) {
 					if(sw.toShoot(rowFire-1, colToFire, directorFire) == false) {
@@ -193,7 +209,7 @@ public class Menu {
 	private void exitProgram() {
 
 		sc.close();
-		System.out.println("Good Bye");
+		System.out.println("Thanks for playing, let's do even better next time! ");
 
 
 	}
