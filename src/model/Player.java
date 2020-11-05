@@ -1,45 +1,45 @@
 package model;
 
-public class User {
+public class Player {
 
 	
 	private int score;
 	private String nickname;
-	private User father;
-	private User left;
-	private User  right;
+	private Player father;
+	private Player left;
+	private Player  right;
 
 
-	public User(String n, int s) {
+	public Player(String n, int s) {
 		nickname = n;
 		score = s;
-		father = null;
+		father = null; 
 		left = null;
 		right = null;
 
 	}
-	public User getLeft() {
+	public Player getLeft() {
 		return left;
 	}
 
 
-	public void setLeft(User left) {
+	public void setLeft(Player left) {
 		this.left = left;
 	}
 
 
-	public User getRight() {
+	public Player getRight() {
 		return right;
 	}
 
 
-	public void setRight(User right) {
+	public void setRight(Player right) {
 		this.right = right;
 	}
-	public User getFather() {
+	public Player getFather() {
 		return father;
 	}
-	public void setFather(User father) {
+	public void setFather(Player father) {
 		this.father = father;
 	}
 
@@ -58,7 +58,6 @@ public class User {
 	public String getNickname() {
 		return nickname;
 	}
-
 
 
 

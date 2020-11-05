@@ -5,6 +5,11 @@ public class Software {
 
 	private Node exitNode;
 	LinkedMatrix LinkedM;
+	Player root;
+	int score;
+	int tries;
+
+
 
 	public Software() {
 
@@ -17,7 +22,7 @@ public class Software {
 	public LinkedMatrix getLinkedM() {
 		return LinkedM;
 	}
-	
+
 	/**
 	 * This method set values to start and exit node
 	 * @param rowShoot is the row where the user wants to shoot
@@ -57,7 +62,8 @@ public class Software {
 			isFound = false;
 		}
 
-		return isFound;
+		tries++;
+		return isFound; 
 
 	}
 
@@ -454,15 +460,25 @@ public class Software {
 				toLocate.setValue(toLocate.getMirror());	
 				guessed = true;
 				toLocate.setVisibility(true);
+				score = score + 10;
+
+				if(tries > 0) {
+					tries++;
+				}
+
 
 			}else {
 				toLocate.setValue("X");	
 				guessed = false;
+				score= score - 1;
+				tries++;
 			}
 
 		}else {
 			toLocate.setValue("X");
 			guessed = false;
+			score = score -2;
+			tries++;
 		}
 
 		return guessed;
@@ -501,27 +517,32 @@ public class Software {
 	/**
 	 * This method generates mirroN quantity of mirrors randomly
 	 * @param mirrorN is the amount of mirrors
-	 * @param n is the amount of rows of the matrix
-	 * @param m is the amount of columns of the matrix
+	 * @param n is the amount of columns of the matrix
+	 * @param m is the amount of rows of the matrix
 	 */
 
 	public void generateRandomMirrors(int mirrorN, int n, int m) {
-		if(mirrorN!=0) {
-			int aleatoryN = (int)(Math.random()*n+1)-1;
-			int aleatoryM = (int)(Math.random()*m+1)-1;
-			Node toSearch = toFindPosition(LinkedM.getFirst(), aleatoryN, aleatoryM);
-			if(toSearch.getMirror().equals("")) {
-				int mirrorRandom = (int)(Math.random()*2+1);
-				if(mirrorRandom==1) {
-					toSearch.setMirror("/");
-				}else if(mirrorRandom==2) {
-					toSearch.setMirror("\\");
+		score = 10;
+		tries = 0;
+		if(mirrorN > 0) {
+			int RandomM = (int) (Math.random() * m); 
+			int RandomN = (int) (Math.random() * n);
+			Node choosen = toFindPosition(LinkedM.getFirst(), RandomM, RandomN);
+			if(choosen.getMirror().equals("")) {
+				int random = (int)(Math.random()*2);
+				if(random == 0) {
+					choosen.setMirror("/");
 				}
-				generateRandomMirrors(mirrorN-1,n,m);
+				if(random == 1) {
+					choosen.setMirror("\\");
+				}
+				generateRandomMirrors(mirrorN-1, n , m);
 			}else {
 				generateRandomMirrors(mirrorN, n, m);
 			}
+
 		}
+
 	}
 
 	/**
@@ -529,12 +550,84 @@ public class Software {
 	 * @param m is the amount of rows of the matrix to be created
 	 * @param n is the amount of columns of the matrix to be created
 	 */
+	
+	/**
+	 * This method create a Linked Matrix with m rows and n columns
+	 * @param m is the number of rows to create
+	 * @param n is the number of columns of the to create
+	 */
 	public void toAddLinkedMatrix(int m, int n) {
 
 
 		LinkedM = new LinkedMatrix(m,n);
 
+
 	}
+	
+	/**
+	 * This method calls the recursive method to add a new player
+	 * @param newPlayer is the user to create
+	 */
+
+	public void addPlayer(Player newPlayer) {
+		if(root== null) {
+			root = newPlayer;
+		}else {
+			addPlayer(root,newPlayer);
+		}
+	}
+    
+	/**
+	 *  This method add a new player to the tree, using inorder type of search
+	 * @param current is the current player
+	 * @param newPlayer is the player to add to the tree
+	 */
+	public void addPlayer(Player current,Player newPlayer) {
+		if(newPlayer.getScore()<=current.getScore()&&current.getLeft()==null) {
+			current.setLeft(newPlayer);
+			newPlayer.setFather(current);
+		}else if(newPlayer.getScore()>current.getScore()&&current.getRight()==null) {
+			current.setRight(newPlayer);
+			newPlayer.setFather(current);
+		}else {
+			if(newPlayer.getScore()<=current.getScore() && current.getLeft()!= null) {
+				addPlayer(current.getLeft(),newPlayer);
+			}else {
+				addPlayer(current.getRight(),newPlayer);
+			}
+		}
+	}
+/**
+ * This method calls the recursive method to show all users total score
+ * @return all users score
+ */
+	public String showScore() {
+		return showScore(root);
+	}
+
+	public String showScore(Player current) {
+		String scores = "";
+		if(current!=null) {
+			scores += showScore(current.getLeft());
+			scores += current.getNickname() + " ----------- " + current.getScore() + "\n";
+			scores += showScore(current.getRight());
+		}
+		return scores;
+	}
+
+	public int getTries() {
+		return tries;
+	}
+
+	public void setTries(int t) {
+		tries = t;
+	}
+
+	public int getScore() {
+
+		return score - getTries();
+	}
+
 
 
 

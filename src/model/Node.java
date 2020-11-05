@@ -52,6 +52,10 @@ public class Node {
 		return col;
 	}
 	
+	/**
+	 * This method obtain the name of the column
+	 * @return the name of the column
+	 */
 	public char getNameCol() {
 		return (char)('A'+col);
 	}
@@ -68,7 +72,7 @@ public class Node {
 		return up;
 	}
 
-	public Node getDown() {
+	public Node getDown() { 
 		return down;
 	}
 
@@ -88,7 +92,10 @@ public class Node {
 		down = d;
 	}
 	
+	/**
+	 * This method print the content of a node
+	 */
 	public String toString() {
-		return "[ "  +getValue()+ " ]";
+		return "[ "  +getValue()+ " ]"; 
 	}
 }
