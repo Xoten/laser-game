@@ -17,7 +17,9 @@ public class Menu {
 	Software sw = new Software();
 	int mirrorsLeft;
 	
-	
+	/**
+	 * This method is the constructor of Menu
+	 */
 	public Menu() {
 		
 		this.sw = startGame();
@@ -26,7 +28,10 @@ public class Menu {
 
 	
 	
-	
+	/**
+	 * This method shows the Menu
+	 * @return the menu
+	 */
 	private String getMenu() {
 		String menu;
 		menu = "============================\n";
@@ -166,6 +171,12 @@ public class Menu {
 			shootOption(stop, m, n, nickName, k);
 		}
 	}
+	
+	/**
+	 * This method displays the menu depending on user choice
+	 * @param option is the option the user selects
+	 * @param menu 
+	 */
 	public void recursiveMenu(int option, String menu) {
         if(option == EXIT_MENU) {
            
