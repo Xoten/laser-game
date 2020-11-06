@@ -78,7 +78,8 @@ public class Menu {
 		System.out.println("If you guess the mirror position correctly but not its inclination, you will lost 1 point");
 		System.out.println("If you guess the mirror position and its inclination correctly, you will gain 10 points");
 		System.out.println("If you fail both, you will lost 2 points\n");
-		System.out.println("Please enter the Nickname, Number of columns, cumber of rows and number of mirrors in a line");
+		System.out.println("Please first enter the Nickname, then number n of columns, then the number m of rows and finally the number of mirrors in a line");
+		System.out.println("Please remember to separate them by one space");
 		String line = sc.nextLine();
 		String [] parts = line.split(" ");
 		String nickName = (parts[0]);

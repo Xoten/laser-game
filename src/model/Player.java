@@ -90,7 +90,7 @@ public class Player {
 	}
 	public int getuserMir() {
 		return smir;
-	}
+	 }
 
 
 
