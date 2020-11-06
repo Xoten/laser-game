@@ -2,7 +2,7 @@ package model;
 
 public class Player {
 
-	
+
 	private int score;
 	private String nickname;
 	private Player father;
@@ -26,7 +26,7 @@ public class Player {
 		srows = sr;
 		scolumns = sco;
 		smir = sm;
-		
+
 
 	}
 	public Player getLeft() {
@@ -69,28 +69,28 @@ public class Player {
 	public String getNickname() {
 		return nickname;
 	}
-	
+
 	public int getPTries() {
-		
+
 		return ptries;
 	}
-    
+
 	public int getBSize() {
-		
+
 		return bsize;
 	}
-	
+
 	public int getuserRows() {
-		
+
 		return srows;
 	}
-    public int getuserCols() {
-    	return scolumns;
-    	
-    }
-    public int getuserMir() {
-    	return smir;
-    }
+	public int getuserCols() {
+		return scolumns;
+
+	}
+	public int getuserMir() {
+		return smir;
+	}
 
 
 
