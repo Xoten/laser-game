@@ -35,7 +35,7 @@ public class Menu {
 	private String getMenu() {
 		String menu;
 		menu = "============================\n";
-		menu = "*****Welcome******";
+		menu = "*****Welcome to******";
 		menu = "============================\n";
 		menu += "*****Laser Game*****\n";
 		menu += "===========================\n";
@@ -45,6 +45,11 @@ public class Menu {
 
 		return menu;
 	}
+	
+	/**
+	 * This method receives the user petition and executes its respective associated method
+	 * @param option is the user petition
+	 */
 	private void executeOperation(int option) {
 		switch (option) {
 		case 1:
@@ -59,11 +64,14 @@ public class Menu {
 			exitProgram();
 			break;
 		default:
-			System.out.println("Select a correct option");
+			System.out.println("Please select a correct option!");
 			break;
 		}
 	}
-
+  
+	/**
+	 * This method display the score instructions to the user, it also receive the basic data to start the game
+	 */
 	private void playGame() {
 		System.out.println("You will start with 10 points");
 		System.out.println("Every time you fire or guess, you will lost 1 point, as it will be count as a try, unless you guess the mirror position and inclination at first try");
@@ -79,58 +87,78 @@ public class Menu {
 		int k = Integer.parseInt(parts[3]);
 		mirrorsLeft = k;
 		sw.toAddLinkedMatrix(m, n);
+        sw.setTries(0);
 
 
-
-		if(k <= m*n) {
+		if(k <= m*n && n <= 26) {
 			sw.generateRandomMirrors(k, n, m);
 			shootOption(false, m, n, nickName, k);
 
-		} else {
-			System.out.println("Mirrors must be minors than the matrix size");
+		} else if(k> m*n || n>26) {
+
+			if(k> m*n && n>26) {
+				System.out.println("\nerror, please remember that mirrors must be minors than the matrix size");
+                System.out.println("error, columns can't be more than 26");
+			}else if(k>m*n) {
+				System.out.println("\nerror, please remember that mirrors must be minors than the matrix size");
+				
+			}else if(n>26) {
+				System.out.println("\nerror, columns can't be more than 26");
+				
+			}
+
+
 		}
 	}
+	/**
+	 * This method execute the game
+	 * @param stop is the condition to continue the game
+	 * @param m is the number of rows of the matrix
+	 * @param n is the number of columns of the matrix
+	 * @param nickName is the player nickname
+	 * @param k is the number of mirrors
+	 */
 
 	public void shootOption(boolean stop,int m, int n, String nickName, int k) {
 		stop = false;
 
 
 
-		 if(mirrorsLeft == 0) {
+		if(mirrorsLeft == 0) {
 
 			System.out.println("You win, you are pro player" + " Score: " + sw.getScore() + " total tries: " + sw.getTries());
-			Player newUser = new Player(nickName, sw.getScore());
+			Player newUser = new Player(nickName, sw.getScore(),n,m,k,n*m, sw.getTries());
 			sw.addPlayer(newUser);
 
 			stop = true;
 
-		   }else {
+		}else {
 			System.out.println(sw.getLinkedM());
-			System.out.println(nickName+": "+mirrorsLeft+" mirrors remaining" + " current Score: " +sw.getScore() + " current tries " +sw.getTries());
+			System.out.println(nickName+": "+mirrorsLeft+" mirrors remaining" + " current Score: " +sw.getScore() + " current tries: " +sw.getTries());
 			System.out.println("Type menu to exit, L to locate or coordinate to fire");
 
 			String fire = sc.nextLine();
-			
-			
+
+
 			if(fire.equalsIgnoreCase("Menu") || stop == true ) {
 
 
 				stop = true;
-				Player newUser = new Player(nickName, sw.getScore());
+				Player newUser = new Player(nickName, sw.getScore(),n,m,k,n*m, sw.getTries());
 				sw.addPlayer(newUser);
-				System.out.println(nickName+": "+mirrorsLeft+"mirrors remaining" +" Score: "+ sw.getScore() + " total tries: " +sw.getTries());
+				System.out.println(nickName+": "+mirrorsLeft+" mirrors remaining" +" Score: "+ sw.getScore() + " total tries: " +sw.getTries());
 
 
 
 			} else if(String.valueOf(fire.charAt(0)).equalsIgnoreCase("L")){
 				boolean mirrorFound = false;
 				String directorMirror = String.valueOf(fire.charAt(fire.length()-1));
-		        char coL = fire.charAt(fire.length()-2);
-		        int colL = coL;
-		        int colToLocate = (char)(colL-'A');
-		        String rowL = fire.substring(1,fire.length()-2);
-		        int rowToLocate = Integer.parseInt(rowL);
-				
+				char coL = fire.charAt(fire.length()-2);
+				int colL = coL;
+				int colToLocate = (char)(colL-'A');
+				String rowL = fire.substring(1,fire.length()-2);
+				int rowToLocate = Integer.parseInt(rowL);
+
 				if(sw.toLocateMirror(rowToLocate-1, colToLocate, directorMirror) == false) {
 					System.out.println(sw.getLinkedM());
 					sw.toFindPosition(sw.getLinkedM().getFirst(), rowToLocate-1, colToLocate).setValue("");
@@ -158,7 +186,7 @@ public class Menu {
 					colFireChar = fire.charAt(fire.length()-2);
 					colFire = colFireChar;
 					colToFire = (char)(colFire - 'A');
-					
+
 				}else {
 					rowF = fire.substring(0 , fire.length()-1);
 					rowFire = Integer.parseInt(rowF);
@@ -168,15 +196,15 @@ public class Menu {
 				}
 				if(rowFire-1 < m && colToFire < n) {
 					if(sw.toShoot(rowFire-1, colToFire, directorFire) == false) {
-						System.out.println("Fire can not be executed");
+						System.out.println("laser can not be fired");
 					} else {
-						System.out.println("Fired!!");
+						System.out.println("Laser's been fired!!");
 						System.out.println(sw.getLinkedM());
 						sw.verifyStateAtEnd(sw.toFindPosition(sw.getLinkedM().getFirst(), rowFire-1, colToFire), sw.getExitNode());
 					}
 				} else {
 
-					System.out.println("Coordinates out of matrix!!");
+					System.out.println("please type a valid option, coordinates are out of matrix!!");
 				}
 
 				shootOption(stop, m, n, nickName, k);
@@ -199,13 +227,21 @@ public class Menu {
 			recursiveMenu(option, menu);
 		}
 	}
+	
+	/**
+	 * This method starts the menu
+	 */
 
 	public void startMenu() {
 		String menu = getMenu();
 		int option = 0;
 		recursiveMenu(option, menu);
 	}
-
+   
+	
+	/**
+	 * This method close the scanner
+	 */
 	private void exitProgram() {
 
 		sc.close();
@@ -213,6 +249,11 @@ public class Menu {
 
 
 	}
+	
+	/**
+	 * This method instance the Scanner 
+	 * @return software object
+	 */
 
 	public Software startGame() {
 
@@ -220,7 +261,11 @@ public class Menu {
 		sc = new Scanner(System.in);
 		return sw;
 	}
-
+    
+	/**
+	 * This method receives the petition of the user
+	 * @return the petition
+	 */
 	public int readOption() {
 
 		int option;
@@ -228,6 +273,9 @@ public class Menu {
 
 		return option;
 	}
+	/**
+	 * This method calls the recursive method of Software in charge of displaying the scores
+	 */
 
 	public void showPositions() {
 		System.out.println("\n"+sw.showScore());

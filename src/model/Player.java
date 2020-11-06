@@ -8,14 +8,25 @@ public class Player {
 	private Player father;
 	private Player left;
 	private Player  right;
+	private int ptries;
+	private int bsize;
+	private int scolumns;
+	private int srows;
+	private int smir;
 
 
-	public Player(String n, int s) {
+	public Player(String n, int s, int sco, int sr, int sm , int size, int t) {
 		nickname = n;
 		score = s;
 		father = null; 
 		left = null;
 		right = null;
+		ptries = t;
+		bsize = size;
+		srows = sr;
+		scolumns = sco;
+		smir = sm;
+		
 
 	}
 	public Player getLeft() {
@@ -58,8 +69,28 @@ public class Player {
 	public String getNickname() {
 		return nickname;
 	}
-
-
+	
+	public int getPTries() {
+		
+		return ptries;
+	}
+    
+	public int getBSize() {
+		
+		return bsize;
+	}
+	
+	public int getuserRows() {
+		
+		return srows;
+	}
+    public int getuserCols() {
+    	return scolumns;
+    	
+    }
+    public int getuserMir() {
+    	return smir;
+    }
 
 
 

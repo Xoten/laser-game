@@ -609,7 +609,7 @@ public class Software {
 		String scores = "";
 		if(current!=null) {
 			scores += showScore(current.getLeft());
-			scores += current.getNickname() + " ----------- " + current.getScore() + "\n";
+			scores += current.getNickname() + " ----------- " + " Score = " +current.getScore() + "| m-rows: "+current.getuserRows()+ "| n-columns: " +current.getuserCols()+ "| Board size: "+current.getBSize()+ "| Total tries: " +current.getPTries()+"\n";
 			scores += showScore(current.getRight());
 		}
 		return scores;
